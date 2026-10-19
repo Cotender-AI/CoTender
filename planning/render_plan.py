@@ -1,7 +1,7 @@
 """Regenerate planning/PLAN.md from issues.json:  python planning/render_plan.py planning/issues.json planning/PLAN.md"""
 import json, sys
 from datetime import date
-d = json.load(open(sys.argv[1])); out = open(sys.argv[2], "w")
+d = json.load(open(sys.argv[1], encoding="utf-8")); out = open(sys.argv[2], "w", encoding="utf-8")
 team = d["team"]; iss = d["issues"]
 ROLE = {"pm": "PM + light frontend", "platform": "Platform & security", "ai": "AI & processing", "data": "Estimating & data"}
 fd = lambda s: (lambda x: f"{x.strftime('%a')} {x.day} {x.strftime('%b')}")(date.fromisoformat(s))

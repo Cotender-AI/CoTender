@@ -671,15 +671,15 @@ doc = {
     "repo": "lethaboGS/CoTender",
     "team": {
         "pm": "griffiths34",
-        "platform": "CHANGE_ME_platform_dev",
-        "ai": "CHANGE_ME_ai_dev",
-        "data": "CHANGE_ME_data_dev",
+        "platform": "lethaboGS",
+        "ai": "S-iba",
+        "data": "SIYABULELA11",
     },
     "milestones": milestones,
     "labels": [{"name": n, "color": c, "description": d} for n, c, d in labels],
     "issues": issues,
 }
-json.dump(doc, open(sys.argv[1], "w"), indent=2, ensure_ascii=False)
+json.dump(doc, open(sys.argv[1], "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 from collections import defaultdict
 pts = defaultdict(int)
