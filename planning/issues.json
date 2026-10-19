@@ -1,0 +1,2171 @@
+{
+  "repo": "lethaboGS/CoTender",
+  "team": {
+    "pm": "griffiths34",
+    "platform": "CHANGE_ME_platform_dev",
+    "ai": "CHANGE_ME_ai_dev",
+    "data": "CHANGE_ME_data_dev"
+  },
+  "milestones": [
+    {
+      "key": "B1",
+      "title": "Batch 1 · Foundation (19–25 Oct)",
+      "due": "2026-10-25",
+      "description": "Repo, compose, CI, schema, contracts, Azure, auth, worker skeleton, tenders API, app shell. Contracts frozen Fri 23 Oct."
+    },
+    {
+      "key": "B2",
+      "title": "Batch 2 · Walking skeleton + core features (26 Oct–1 Nov)",
+      "due": "2026-11-01",
+      "description": "Upload end to end on staging (Gate G1, Wed 28 Oct), extractors, BoQ pricing, review state machine, versions."
+    },
+    {
+      "key": "B3",
+      "title": "Batch 3 · Full MVP loop (2–6 Nov)",
+      "due": "2026-11-06",
+      "description": "LLM extraction, matching, review screen, BoQ editor, checklist, validators. Gate G2 Fri 6 Nov: real tender pack to approved priced data."
+    },
+    {
+      "key": "B4",
+      "title": "Batch 4 · Release + submit (7–10 Nov)",
+      "due": "2026-11-10",
+      "description": "Exports, hardening, prod deploy, E2E, AI report, docs, demo. Gate G3 Mon 9 Nov. Submit Tue 10 Nov."
+    }
+  ],
+  "labels": [
+    {
+      "name": "lane:platform",
+      "color": "1d76db",
+      "description": "Platform and security: API core, auth, uploads, storage, audit, CI/CD, deploy"
+    },
+    {
+      "name": "lane:ai",
+      "color": "5319e7",
+      "description": "AI and processing: queue, worker, extractors, OCR, LLM, validators, matching, eval"
+    },
+    {
+      "name": "lane:data",
+      "color": "0e8a16",
+      "description": "Estimating and data: schema, tenders, BoQ, pricing, review, checklist, suppliers, exports"
+    },
+    {
+      "name": "lane:frontend",
+      "color": "fbca04",
+      "description": "Next.js screens"
+    },
+    {
+      "name": "lane:pm",
+      "color": "c5def5",
+      "description": "Project management, samples, pilot, docs, demo"
+    },
+    {
+      "name": "type:feature",
+      "color": "a2eeef",
+      "description": "New functionality"
+    },
+    {
+      "name": "type:infra",
+      "color": "bfd4f2",
+      "description": "Repo, CI, cloud, deployment"
+    },
+    {
+      "name": "type:contract",
+      "color": "d93f0b",
+      "description": "Frozen contract: schema, OpenAPI, candidate JSON, job status"
+    },
+    {
+      "name": "type:test",
+      "color": "c2e0c6",
+      "description": "Tests and evaluation"
+    },
+    {
+      "name": "type:docs",
+      "color": "0075ca",
+      "description": "Documentation"
+    },
+    {
+      "name": "type:gate",
+      "color": "b60205",
+      "description": "Integration gate: whole team checks this together"
+    },
+    {
+      "name": "priority:P0",
+      "color": "b60205",
+      "description": "MVP: must work by Gate G2"
+    },
+    {
+      "name": "priority:P1",
+      "color": "d93f0b",
+      "description": "Should have for submission"
+    },
+    {
+      "name": "priority:P2",
+      "color": "fef2c0",
+      "description": "Stretch: cut first if behind"
+    },
+    {
+      "name": "pts:1",
+      "color": "ededed",
+      "description": "Estimate: ~half a day"
+    },
+    {
+      "name": "pts:2",
+      "color": "ededed",
+      "description": "Estimate: ~1 day"
+    },
+    {
+      "name": "pts:3",
+      "color": "ededed",
+      "description": "Estimate: ~1.5 days"
+    },
+    {
+      "name": "pts:5",
+      "color": "ededed",
+      "description": "Estimate: ~2.5 days"
+    },
+    {
+      "name": "pts:8",
+      "color": "ededed",
+      "description": "Estimate: ~4 days"
+    }
+  ],
+  "issues": [
+    {
+      "key": "PM-01",
+      "title": "[PM-01] Set up project board, branch protection and PR template",
+      "owner": "pm",
+      "milestone": "B1",
+      "start": "2026-10-19",
+      "due": "2026-10-19",
+      "points": 1,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:infra",
+        "priority:P0",
+        "pts:1"
+      ],
+      "depends_on": [],
+      "stub_ok": [],
+      "goal": "Everyone can see who is doing what this week, and nothing lands on main without review.",
+      "tasks": [
+        "Run `planning/create_issues.py` to create labels, milestones and all issues",
+        "Create a GitHub Project (board view) with columns Backlog / This week / In progress / In review / Done; add every issue; group by milestone",
+        "Add Start date and Due date fields to the Project and copy the dates from each issue",
+        "Create `dev` branch; protect `main` and `dev` (PR required, 1 approval, CI must pass)",
+        "Agree working rules in README: branch per issue `feat/<key>-short-name`, PR into `dev`, squash merge",
+        "Book a 15-min daily stand-up and a weekly batch review (Sundays)"
+      ],
+      "done": [
+        "All issues on the board with owners and dates",
+        "Direct pushes to main are blocked"
+      ],
+      "files": [
+        ".github/pull_request_template.md",
+        "README.md"
+      ],
+      "endpoints": [],
+      "refs": [],
+      "code": false
+    },
+    {
+      "key": "PM-02",
+      "title": "[PM-02] Azure for Students subscription, team access and budget alerts",
+      "owner": "pm",
+      "milestone": "B1",
+      "start": "2026-10-19",
+      "due": "2026-10-20",
+      "points": 1,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:infra",
+        "priority:P0",
+        "pts:1"
+      ],
+      "depends_on": [],
+      "stub_ok": [],
+      "goal": "The team has one Azure subscription to deploy into, with alerts before the $100 credit runs out.",
+      "tasks": [
+        "Activate Azure for Students on one account; create resource group `rg-cotender` in one region (South Africa North or West Europe)",
+        "Invite the platform and AI developers as Contributors on the resource group",
+        "Create budget alerts at $20 and $50 emailed to all four members",
+        "Start `docs/costs.md`: a table of each resource, SKU and expected monthly cost"
+      ],
+      "done": [
+        "Platform dev can create resources in the resource group",
+        "Budget alerts visible in Cost Management"
+      ],
+      "files": [],
+      "endpoints": [],
+      "refs": [
+        "build-plan F4"
+      ],
+      "code": false
+    },
+    {
+      "key": "PM-03",
+      "title": "[PM-03] Collect 3+ real electrical tender packs into samples/",
+      "owner": "pm",
+      "milestone": "B1",
+      "start": "2026-10-19",
+      "due": "2026-10-23",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:test",
+        "priority:P0",
+        "pts:2"
+      ],
+      "depends_on": [],
+      "stub_ok": [],
+      "goal": "The AI dev has real RFQ/BoQ files (PDF text, scanned PDF, XLSX, DOCX) to build and test extractors against.",
+      "tasks": [
+        "Get at least 3 electrical tender packs from municipal/public portals or contacts, with permission to use them",
+        "Include at least: one text PDF RFQ, one scanned PDF, one XLSX BoQ, one DOCX, one supplier quotation",
+        "Put them in `samples/<pack-name>/` with a `README.md` per pack (source, permission, what's inside)",
+        "Remove personal information (names, ID numbers, phone numbers) where possible",
+        "Keep files under 20 MB / 50 pages each (our upload limit)"
+      ],
+      "done": [
+        "samples/ has 3+ packs covering PDF, scan, XLSX and DOCX",
+        "AI dev confirms the files are usable"
+      ],
+      "files": [
+        "samples/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan C1",
+        "spec 7.5"
+      ],
+      "code": false
+    },
+    {
+      "key": "F1",
+      "title": "[F1] Own the starter repo: Compose, CI, Docker image on every laptop",
+      "owner": "platform",
+      "milestone": "B1",
+      "start": "2026-10-19",
+      "due": "2026-10-20",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:infra",
+        "priority:P0",
+        "pts:2"
+      ],
+      "depends_on": [],
+      "stub_ok": [],
+      "goal": "**Starter kit provided.** The skeleton for this is already in the repo; your job is to review it, own it and finish what's listed below.\n\nEvery developer runs the same stack with one command, and every PR is checked automatically.",
+      "tasks": [
+        "Run `make up` on all four laptops (Windows, Mac, Linux); fix anything that breaks and document it in README",
+        "Confirm `docker compose up` serves http://localhost:8000/docs and http://localhost:3000",
+        "Make CI required on `main` and `dev` (branch protection) once the first PR is green",
+        "Add Dependabot (pip + npm) and a `pip-audit` / `npm audit` CI step",
+        "Read `backend/app/core/` end to end so you can answer questions about it"
+      ],
+      "done": [
+        "`docker compose up` serves /health on :8000 and the Next.js page on :3000 on all four laptops",
+        "CI is green on an empty PR"
+      ],
+      "files": [
+        "docker-compose.yml",
+        "backend/Dockerfile",
+        ".github/workflows/ci.yml",
+        ".env.example",
+        "Makefile"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan F1",
+        "CLAUDE.md Repo layout"
+      ],
+      "code": true
+    },
+    {
+      "key": "F2",
+      "title": "[F2] Review and own the schema: 20 tables, migration 001, seed",
+      "owner": "data",
+      "milestone": "B1",
+      "start": "2026-10-19",
+      "due": "2026-10-21",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:contract",
+        "priority:P0",
+        "pts:3"
+      ],
+      "depends_on": [
+        "F1"
+      ],
+      "stub_ok": [
+        "F1"
+      ],
+      "goal": "**Starter kit provided.** The skeleton for this is already in the repo; your job is to review it, own it and finish what's listed below.\n\nLock the data model everyone builds on before the freeze on Fri 23 Oct.",
+      "tasks": [
+        "Walk the team through `backend/app/core/models/` and `docs/erd.md` (30 min)",
+        "Check every table and enum against the spec (section 6) and docs/architecture.md; list gaps",
+        "Before the freeze you may edit `001_initial.py` directly; after Fri 23 Oct only new migrations",
+        "Check `scripts/seed.py` covers what C1/A1 tests need; extend if not",
+        "Regenerate `docs/erd.md` (`make erd`) after any change",
+        "Keep `tests/security/test_org_scoped_repository.py` as the template everyone copies"
+      ],
+      "done": [
+        "`alembic upgrade head` works on an empty database; downgrade to base works",
+        "Seed loads",
+        "Cross-tenant test proves Org B cannot read/update/delete Org A rows through OrgScopedRepository"
+      ],
+      "files": [
+        "backend/app/core/models/",
+        "backend/alembic/versions/001_initial.py",
+        "backend/scripts/seed.py",
+        "backend/app/core/repository.py",
+        "docs/erd.md"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan F2",
+        "CLAUDE.md rules 2-7",
+        "FR-05, FR-26, FR-28"
+      ],
+      "code": true
+    },
+    {
+      "key": "F4-AI",
+      "title": "[F4-AI] Day-1 check: Azure OpenAI quota, Document Intelligence, fallback LLM",
+      "owner": "ai",
+      "milestone": "B1",
+      "start": "2026-10-19",
+      "due": "2026-10-20",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:infra",
+        "priority:P0",
+        "pts:2"
+      ],
+      "depends_on": [],
+      "stub_ok": [],
+      "goal": "Find out on day 1 whether the student subscription can run an LLM at all, so extraction isn't blocked in week 2.",
+      "tasks": [
+        "Try to deploy a gpt-4o-mini class model in Azure OpenAI; record quota and region",
+        "If quota is zero: pick a fallback provider with JSON-schema structured output and get a key",
+        "Create Document Intelligence (F0) and run Layout on one scanned sample page",
+        "Small script: one LLM call returns JSON that validates against a toy Pydantic model",
+        "Write findings in `docs/ai-providers.md` (provider, model, region, cost per 1K tokens, limits); keys go to the team password manager, never the repo"
+      ],
+      "done": [
+        "A test LLM call returns valid JSON",
+        "Decision on primary + fallback provider written down"
+      ],
+      "files": [],
+      "endpoints": [],
+      "refs": [
+        "build-plan F4",
+        "CLAUDE.md Stack: LLM"
+      ],
+      "code": false
+    },
+    {
+      "key": "F3-P",
+      "title": "[F3-P] Review platform API contracts: auth, documents, jobs, audit, usage, notifications",
+      "owner": "platform",
+      "milestone": "B1",
+      "start": "2026-10-21",
+      "due": "2026-10-22",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:contract",
+        "priority:P0",
+        "pts:2"
+      ],
+      "depends_on": [
+        "F1",
+        "F2"
+      ],
+      "stub_ok": [],
+      "goal": "**Starter kit provided.** The skeleton for this is already in the repo; your job is to review it, own it and finish what's listed below.\n\nStub routers already return example data for every endpoint. Make sure the shapes are right before the freeze.",
+      "tasks": [
+        "Review schemas in `app/modules/{auth,documents,jobs,audit,usage,notifications,organisation}/schemas.py`",
+        "Check the role on every stub matches the role matrix in docs/architecture.md",
+        "Add request-id middleware (header `X-Request-ID`, logged with every line)",
+        "`make openapi` and commit `docs/openapi.json` + regenerated frontend client"
+      ],
+      "done": [
+        "Every platform-lane endpoint from CLAUDE.md appears in openapi.json with examples"
+      ],
+      "files": [
+        "backend/app/core/errors.py",
+        "backend/app/modules/*/schemas.py",
+        "docs/openapi.json"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan F3",
+        "CLAUDE.md rule 11, API list"
+      ],
+      "code": true
+    },
+    {
+      "key": "F3-D",
+      "title": "[F3-D] Review estimating API contracts: tenders, BoQ, checklist, suppliers, exports",
+      "owner": "data",
+      "milestone": "B1",
+      "start": "2026-10-22",
+      "due": "2026-10-22",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:contract",
+        "priority:P0",
+        "pts:2"
+      ],
+      "depends_on": [
+        "F2",
+        "F3-P"
+      ],
+      "stub_ok": [],
+      "goal": "**Starter kit provided.** The skeleton for this is already in the repo; your job is to review it, own it and finish what's listed below.\n\nFreeze the shape of the estimating endpoints so the frontend can build screens in parallel.",
+      "tasks": [
+        "Review schemas in `app/modules/{tenders,boq,checklist,suppliers,exports}/schemas.py`",
+        "Money and quantities stay strings (DecimalStr), never floats",
+        "Adjust example data so it looks like a real electrical BoQ",
+        "`make openapi` and commit"
+      ],
+      "done": [
+        "Every estimating endpoint in openapi.json with examples",
+        "Contracts marked frozen Fri 23 Oct (later changes additive only)"
+      ],
+      "files": [
+        "backend/app/modules/{tenders,boq,checklist,suppliers,exports}/schemas.py"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan F3"
+      ],
+      "code": true
+    },
+    {
+      "key": "F3-A",
+      "title": "[F3-A] Review candidate JSON schemas + job status contract",
+      "owner": "ai",
+      "milestone": "B1",
+      "start": "2026-10-21",
+      "due": "2026-10-21",
+      "points": 1,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:contract",
+        "priority:P0",
+        "pts:1"
+      ],
+      "depends_on": [
+        "F1"
+      ],
+      "stub_ok": [],
+      "goal": "**Starter kit provided.** The skeleton for this is already in the repo; your job is to review it, own it and finish what's listed below.\n\nFix the exact shape the AI returns, so review and matching can be built before the extractors work.",
+      "tasks": [
+        "Review `backend/app/ai/schemas.py` against 2 real sample BoQs and RFQs; add missing fields",
+        "Write `docs/jobs.md`: job statuses, error_code list, retry rules",
+        "Extend `tests/unit/test_candidate_schemas.py`"
+      ],
+      "done": [
+        "Schemas merged and marked frozen"
+      ],
+      "files": [
+        "backend/app/ai/schemas.py",
+        "docs/jobs.md"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan F3",
+        "CLAUDE.md rules 7, 9"
+      ],
+      "code": true
+    },
+    {
+      "key": "F4-P",
+      "title": "[F4-P] Azure infrastructure + GitHub OIDC",
+      "owner": "platform",
+      "milestone": "B1",
+      "start": "2026-10-22",
+      "due": "2026-10-23",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:infra",
+        "priority:P0",
+        "pts:3"
+      ],
+      "depends_on": [
+        "F1",
+        "PM-02"
+      ],
+      "stub_ok": [],
+      "goal": "Create the cloud pieces staging deploys into, scripted so they can be recreated.",
+      "tasks": [
+        "`infra/azure-setup.sh` (az CLI): PostgreSQL Flexible B1ms, storage account with private blob container + queue, Container Apps environment, Static Web Apps (free), Application Insights",
+        "GitHub OIDC federated credential so Actions can log in to Azure without secrets in the repo",
+        "Images on GHCR",
+        "`docs/deployment.md`: what exists, how to recreate it, where secrets live"
+      ],
+      "done": [
+        "Every resource exists and is reachable from a CI job"
+      ],
+      "files": [
+        "infra/azure-setup.sh",
+        "docs/deployment.md"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan F4"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-01",
+      "title": "[FE-01] Polish the app shell: shadcn/ui, top bar, user menu",
+      "owner": "pm",
+      "milestone": "B1",
+      "start": "2026-10-22",
+      "due": "2026-10-23",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P0",
+        "lane:frontend",
+        "pts:2"
+      ],
+      "depends_on": [
+        "F1",
+        "F3-P"
+      ],
+      "stub_ok": [],
+      "goal": "**Starter kit provided.** The skeleton for this is already in the repo; your job is to review it, own it and finish what's listed below.\n\nLayout, nav, typed API client and placeholder pages exist. Make the shell look and feel finished.",
+      "tasks": [
+        "Add shadcn/ui (button, input, table, badge, dialog, toast) and use it in the shell",
+        "Top bar: tender search box, notifications bell (placeholder), user menu with logout",
+        "Responsive sidebar (collapses on phone width)",
+        "Shared `StatusBadge` component for extracted / corrected / approved / rejected / stale"
+      ],
+      "done": [
+        "Nav works; a page calls `GET /health` through the generated client",
+        "`npm run build` passes in CI"
+      ],
+      "files": [
+        "frontend/src/app/layout.tsx",
+        "frontend/src/api/",
+        "frontend/src/components/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D1"
+      ],
+      "code": true
+    },
+    {
+      "key": "B1",
+      "title": "[B1] Queue + worker skeleton + job endpoints",
+      "owner": "ai",
+      "milestone": "B1",
+      "start": "2026-10-22",
+      "due": "2026-10-26",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "F1",
+        "F2",
+        "F3-A"
+      ],
+      "stub_ok": [],
+      "goal": "A queued job gets picked up by the worker and ends as succeeded or failed, with retries, without duplicates.",
+      "tasks": [
+        "Replace the stub in `app/modules/jobs/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "`python -m app.worker`: read job id from the Storage Queue (Azurite locally)",
+        "Claim job queued → running; skip if idempotency key already succeeded",
+        "Retry with backoff, max 3, then failed + error_code; original file untouched",
+        "First extractor only: PyMuPDF text per page into `document_pages`",
+        "`GET /jobs/{id}`, `POST /jobs/{id}/retry` (router → service → repository)",
+        "Tests: success, corrupt file → failed, retry doesn't duplicate pages"
+      ],
+      "done": [
+        "A text PDF job ends with document_pages rows and a succeeded job (locally; on staging after A2)"
+      ],
+      "files": [
+        "backend/app/worker.py",
+        "backend/app/modules/jobs/",
+        "backend/app/processing/pdf.py"
+      ],
+      "endpoints": [
+        "GET /jobs/{id}",
+        "POST /jobs/{id}/retry"
+      ],
+      "refs": [
+        "build-plan B1",
+        "US-03",
+        "FR-13, FR-15, FR-16"
+      ],
+      "code": true
+    },
+    {
+      "key": "A1",
+      "title": "[A1] Core + auth: register, login, logout, me, roles, audit hook",
+      "owner": "platform",
+      "milestone": "B1",
+      "start": "2026-10-23",
+      "due": "2026-10-26",
+      "points": 8,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:feature",
+        "priority:P0",
+        "pts:8"
+      ],
+      "depends_on": [
+        "F2",
+        "F3-P"
+      ],
+      "stub_ok": [],
+      "goal": "Real authentication and role checks replace the stub principal, so every other endpoint is protected.",
+      "tasks": [
+        "Replace the stub in `app/modules/auth/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "Settings, DB session dependency, structured JSON logging (ids only)",
+        "argon2id password hashes; JWT access (30 min) + refresh (7 days) in httpOnly/Secure/SameSite=Lax cookies",
+        "`POST /auth/register` creates org + admin membership; login, logout, `GET /me`",
+        "`require_role(...)` dependency; organisation_id only from the verified token",
+        "`POST /invites`, `PATCH /members/{id}` (admin only)",
+        "`audit.record()` hook used by services",
+        "slowapi limit on login"
+      ],
+      "done": [
+        "401 without a token, 403 for a wrong role",
+        "Every repository query carries organisation_id",
+        "Cross-tenant test for memberships/invites"
+      ],
+      "files": [
+        "backend/app/core/",
+        "backend/app/modules/auth/"
+      ],
+      "endpoints": [
+        "POST /auth/register",
+        "POST /auth/login",
+        "POST /auth/logout",
+        "GET /me",
+        "POST /invites",
+        "PATCH /members/{id}"
+      ],
+      "refs": [
+        "build-plan A1",
+        "FR-01..FR-05"
+      ],
+      "code": true
+    },
+    {
+      "key": "C1",
+      "title": "[C1] Tenders API + dashboard",
+      "owner": "data",
+      "milestone": "B1",
+      "start": "2026-10-23",
+      "due": "2026-10-25",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "F2",
+        "F3-D"
+      ],
+      "stub_ok": [],
+      "goal": "Users create and manage tender workspaces; the dashboard shows closing dates.",
+      "tasks": [
+        "Replace the stub in `app/modules/tenders/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "Tenders router/service/repository (repository inherits OrgScopedRepository)",
+        "Create with required title, reference, client, closing date; status starts `draft`",
+        "List with search and status filter; archived hidden by default",
+        "Allowed status transitions only (invalid → 422); archive endpoint",
+        "`GET /dashboard`: tenders closing in the next 14 days with countdown",
+        "Audit event on create/update/archive",
+        "Uses the stub principal until A1 merges, then the real one"
+      ],
+      "done": [
+        "Invalid transition returns 422",
+        "Archived tenders hidden from the default list",
+        "Org B gets 404 on Org A's tender"
+      ],
+      "files": [
+        "backend/app/modules/tenders/"
+      ],
+      "endpoints": [
+        "POST /tenders",
+        "GET /tenders",
+        "GET /tenders/{id}",
+        "PATCH /tenders/{id}",
+        "POST /tenders/{id}/archive",
+        "GET /dashboard"
+      ],
+      "refs": [
+        "build-plan C1",
+        "US-01",
+        "FR-06, FR-08, FR-10, FR-44"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-02",
+      "title": "[FE-02] Login and register pages + auth guard",
+      "owner": "pm",
+      "milestone": "B1",
+      "start": "2026-10-24",
+      "due": "2026-10-26",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P0",
+        "pts:3",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-01",
+        "A1"
+      ],
+      "stub_ok": [
+        "A1"
+      ],
+      "goal": "People can sign up their company, log in and stay logged in; logged-out users get sent to login.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Register page (company name, your name, email, password) and login page with shadcn forms",
+        "Auth guard: call `GET /me` on load; redirect to /login on 401",
+        "Logout button in the top bar",
+        "Show the standard error message on failure",
+        "Build against the stub first; switch to the real endpoints when A1 merges"
+      ],
+      "done": [
+        "Seeded users can log in and out locally"
+      ],
+      "files": [
+        "frontend/src/app/(auth)/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D1",
+        "FR-01, FR-02"
+      ],
+      "code": true
+    },
+    {
+      "key": "A2",
+      "title": "[A2] Upload endpoint: sniff, Blob storage, job + queue, 202",
+      "owner": "platform",
+      "milestone": "B2",
+      "start": "2026-10-26",
+      "due": "2026-10-27",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "A1",
+        "B1",
+        "F4-P"
+      ],
+      "stub_ok": [],
+      "goal": "An upload is safely stored and queued for processing, and the user gets an answer in under 5 seconds.",
+      "tasks": [
+        "Replace the stub in `app/modules/documents/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "`POST /tenders/{id}/documents` (multipart): sniff MIME from bytes (PDF, XLSX, CSV, DOCX only), 20 MB / 50 page cap",
+        "Stream to Blob `org/{org}/tenders/{tender}/{doc}/v{n}` computing SHA-256 on the way",
+        "Insert `documents` + `extraction_jobs` (idempotency key = doc id + checksum + job type) in one transaction",
+        "Put job id on the queue; return 202 with document id and job id",
+        "`GET /documents/{id}`; `app/core/storage.py` blob + queue client (Azurite locally)",
+        "Tests: wrong type → 422 with a clear message, too big → 422, other org → 404"
+      ],
+      "done": [
+        "Upload returns 202 in under 5 s with a 10 MB PDF"
+      ],
+      "files": [
+        "backend/app/modules/documents/",
+        "backend/app/core/storage.py"
+      ],
+      "endpoints": [
+        "POST /tenders/{id}/documents",
+        "GET /documents/{id}"
+      ],
+      "refs": [
+        "build-plan A2",
+        "US-02",
+        "CLAUDE.md rule 8",
+        "FR-07, FR-12"
+      ],
+      "code": true
+    },
+    {
+      "key": "A2-DEPLOY",
+      "title": "[A2-DEPLOY] Staging deploy pipeline",
+      "owner": "platform",
+      "milestone": "B2",
+      "start": "2026-10-27",
+      "due": "2026-10-28",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:infra",
+        "priority:P0",
+        "pts:3"
+      ],
+      "depends_on": [
+        "F4-P",
+        "A2"
+      ],
+      "stub_ok": [],
+      "goal": "Every merge to dev deploys to staging automatically, so the team tests the real thing.",
+      "tasks": [
+        "`.github/workflows/deploy-staging.yml`: build image → GHCR → run `alembic upgrade head` → update API container app + worker job",
+        "Frontend static export → Static Web Apps",
+        "Worker as a Container Apps Job with a queue-length scale rule",
+        "Seed staging with the demo org"
+      ],
+      "done": [
+        "Merge to dev updates staging without manual steps"
+      ],
+      "files": [
+        ".github/workflows/deploy-staging.yml"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan A2, B1"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-03",
+      "title": "[FE-03] Tenders list, create form, tender workspace, dashboard countdown",
+      "owner": "pm",
+      "milestone": "B2",
+      "start": "2026-10-26",
+      "due": "2026-10-27",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P0",
+        "pts:3",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-02",
+        "C1"
+      ],
+      "stub_ok": [],
+      "goal": "Users can create a tender and see all their tenders with closing countdowns.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Tenders list (TanStack Table): search, status filter, closing date",
+        "New tender form: title, reference, client, location, closing date+time (required fields enforced)",
+        "Tender workspace page with tabs: Documents, Review, BoQ, Checklist, Suppliers, Exports (empty placeholders)",
+        "Dashboard: tenders closing in the next 14 days with a countdown badge"
+      ],
+      "done": [
+        "Create a tender and see it in the list and on the dashboard"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/",
+        "frontend/src/app/(app)/dashboard/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D1",
+        "US-01"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-04",
+      "title": "[FE-04] Upload widget + job status polling",
+      "owner": "pm",
+      "milestone": "B2",
+      "start": "2026-10-27",
+      "due": "2026-10-28",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P0",
+        "pts:2",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-03",
+        "A2",
+        "B1"
+      ],
+      "stub_ok": [],
+      "goal": "Users see their file was received and watch processing finish.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Drag-and-drop upload on the Documents tab (PDF, DOCX, XLSX, CSV; show size limit)",
+        "After 202, poll `GET /jobs/{id}` every 3 s; badges: queued, running, succeeded, failed",
+        "Failed shows the error and a Retry button (`POST /jobs/{id}/retry`)",
+        "Documents list shows filename, version, uploaded by, status"
+      ],
+      "done": [
+        "Upload a PDF and watch it reach succeeded"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/view/documents/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "US-02, US-03"
+      ],
+      "code": true
+    },
+    {
+      "key": "G1",
+      "title": "[G1] GATE G1 · Walking skeleton on staging (Wed 28 Oct)",
+      "owner": "pm",
+      "milestone": "B2",
+      "start": "2026-10-28",
+      "due": "2026-10-28",
+      "points": 0,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:gate",
+        "priority:P0"
+      ],
+      "depends_on": [
+        "A1",
+        "A2",
+        "A2-DEPLOY",
+        "B1",
+        "C1",
+        "FE-04"
+      ],
+      "stub_ok": [],
+      "goal": "Prove the spine works end to end before parallel feature work piles up. PM runs the check with the whole team.",
+      "tasks": [
+        "Log in on staging as a seeded user",
+        "Create a tender and upload a text PDF",
+        "Job runs in the worker and the page shows succeeded",
+        "CI and staging deploy are automatic",
+        "If anything fails: open a P0 bug issue, assign it, and re-check next day"
+      ],
+      "done": [
+        "All four checks pass on staging"
+      ],
+      "files": [],
+      "endpoints": [],
+      "refs": [
+        "build-plan G1"
+      ],
+      "code": false
+    },
+    {
+      "key": "B2",
+      "title": "[B2] File extractors: PDF tables, XLSX/CSV, DOCX, OCR",
+      "owner": "ai",
+      "milestone": "B2",
+      "start": "2026-10-27",
+      "due": "2026-10-29",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "B1",
+        "PM-03"
+      ],
+      "stub_ok": [],
+      "goal": "Every supported file type turns into page- or sheet-numbered text/rows the LLM step can use.",
+      "tasks": [
+        "Extractor registry keyed by sniffed MIME type",
+        "pdfplumber tables for text PDFs",
+        "openpyxl/pandas keep sheet name and row number",
+        "python-docx paragraphs and tables",
+        "Scanned pages → Document Intelligence Layout; Tesseract fallback (P2 if time is short)",
+        "Record ocr_used and confidence on document_pages",
+        "One fixture per file type in tests (small files, not the full samples)"
+      ],
+      "done": [
+        "One fixture per file type parses with page or sheet numbers"
+      ],
+      "files": [
+        "backend/app/processing/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan B2",
+        "US-03",
+        "FR-11, FR-13, FR-14"
+      ],
+      "code": true
+    },
+    {
+      "key": "C2",
+      "title": "[C2] BoQ editing + Decimal pricing",
+      "owner": "data",
+      "milestone": "B2",
+      "start": "2026-10-26",
+      "due": "2026-10-29",
+      "points": 8,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P0",
+        "pts:8"
+      ],
+      "depends_on": [
+        "C1"
+      ],
+      "stub_ok": [],
+      "goal": "Estimators edit BoQ lines and get totals that are correct to the cent.",
+      "tasks": [
+        "Replace the stub in `app/modules/boq/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "`GET /tenders/{id}/boq` (lines + totals), `PATCH /boq-items/{id}`",
+        "Edits change the live column, keep `original_*`, write a `field_revisions` row; status → corrected",
+        "Material, labour, markup fields with org defaults (FR-27)",
+        "`pricing.py`: pure Decimal functions, ROUND_HALF_UP to 2 places per line, VAT mode from org (ZAR 15% default)",
+        "Totals use approved lines only; null quantity = missing, 0 = zero",
+        "Flags for missing quantity/unit/price and outliers",
+        "Unit tests first for pricing.py (VAT on/off, rounding edge cases, null vs zero)"
+      ],
+      "done": [
+        "Pricing unit tests pass, VAT on and off",
+        "Cross-tenant test for boq items"
+      ],
+      "files": [
+        "backend/app/modules/boq/",
+        "backend/app/modules/boq/pricing.py"
+      ],
+      "endpoints": [
+        "GET /tenders/{id}/boq",
+        "PATCH /boq-items/{id}"
+      ],
+      "refs": [
+        "build-plan C2",
+        "CLAUDE.md rules 3-5",
+        "FR-25..FR-29"
+      ],
+      "code": true
+    },
+    {
+      "key": "A3",
+      "title": "[A3] Document versions, stale items, 5-minute download links",
+      "owner": "platform",
+      "milestone": "B2",
+      "start": "2026-10-29",
+      "due": "2026-10-31",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "A2"
+      ],
+      "stub_ok": [],
+      "goal": "Re-uploading keeps history, and old extracted items are marked stale so nobody approves against an outdated document.",
+      "tasks": [
+        "Replace the stub in `app/modules/documents/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "Re-upload of the same document creates version n+1 and keeps older versions",
+        "Mark items from the old version `stale` (call the review service from C3; stub until it lands)",
+        "`GET /documents/{id}/download`: permission check, then 5-minute read-only SAS URL",
+        "Tests: version 2 keeps version 1, expired link refused, other org 404"
+      ],
+      "done": [
+        "Old versions kept; stale items flagged; download link expires after 5 min"
+      ],
+      "files": [
+        "backend/app/modules/documents/service.py"
+      ],
+      "endpoints": [
+        "GET /documents/{id}/download"
+      ],
+      "refs": [
+        "build-plan A3",
+        "US-02",
+        "FR-09"
+      ],
+      "code": true
+    },
+    {
+      "key": "C3",
+      "title": "[C3] Review state machine, requirements, tasks, checklist API",
+      "owner": "data",
+      "milestone": "B2",
+      "start": "2026-10-30",
+      "due": "2026-11-02",
+      "points": 8,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P0",
+        "pts:8"
+      ],
+      "depends_on": [
+        "C2"
+      ],
+      "stub_ok": [],
+      "goal": "Users approve, correct or reject extracted items, and requirements turn into an assignable checklist.",
+      "tasks": [
+        "Replace the stub in `app/modules/boq/router.py`, `app/modules/checklist/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "Review states extracted → corrected → approved | rejected; any → stale; only `approve()` sets approved (stamps user + time)",
+        "Items flagged `no_source` cannot be approved",
+        "`POST /tenders/{id}/boq/approve` (bulk approve)",
+        "`GET /tenders/{id}/requirements`, `PATCH /requirements/{id}`: classify mandatory/conditional/optional, approve, assign (project manager can assign but not edit)",
+        "`POST /tasks`, `PATCH /tasks/{id}`; `GET /tenders/{id}/checklist`",
+        "Checklist response carries the compliance wording (extracted to support preparation, not a ruling)",
+        "Audit events on approve/reject/assign"
+      ],
+      "done": [
+        "Only approve() can set approved; illegal transitions return 422",
+        "Cross-tenant tests for requirements and tasks"
+      ],
+      "files": [
+        "backend/app/modules/checklist/",
+        "backend/app/modules/boq/review.py"
+      ],
+      "endpoints": [
+        "POST /tenders/{id}/boq/approve",
+        "GET /tenders/{id}/requirements",
+        "PATCH /requirements/{id}",
+        "GET /tenders/{id}/checklist",
+        "POST /tasks",
+        "PATCH /tasks/{id}"
+      ],
+      "refs": [
+        "build-plan C3",
+        "US-05, US-06, US-07",
+        "CLAUDE.md rule 6",
+        "FR-20..FR-22, FR-43, FR-46"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-05",
+      "title": "[FE-05] Settings: organisation defaults, members, usage",
+      "owner": "pm",
+      "milestone": "B2",
+      "start": "2026-10-29",
+      "due": "2026-11-01",
+      "points": 3,
+      "priority": "P1",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P1",
+        "pts:3",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-02",
+        "A1"
+      ],
+      "stub_ok": [],
+      "goal": "Admins manage their workspace without asking a developer.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Organisation page: name, registration number, default markup %, VAT mode (`GET/PATCH /organisation`)",
+        "Members page: list, invite by email + role, change role / deactivate (admin only; hide for others)",
+        "Usage page: pages processed and exports this month vs plan limit (`GET /usage`; stub until A4)"
+      ],
+      "done": [
+        "Admin can invite a member and change the default markup"
+      ],
+      "files": [
+        "frontend/src/app/(app)/settings/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "FR-04, FR-47"
+      ],
+      "code": true
+    },
+    {
+      "key": "PM-04",
+      "title": "[PM-04] Verified expected answers for the evaluation set",
+      "owner": "pm",
+      "milestone": "B2",
+      "start": "2026-10-28",
+      "due": "2026-11-03",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:test",
+        "priority:P0",
+        "pts:3"
+      ],
+      "depends_on": [
+        "PM-03"
+      ],
+      "stub_ok": [],
+      "goal": "The AI accuracy report needs a hand-checked answer key; without it B4 and B5 can't measure anything.",
+      "tasks": [
+        "With the AI dev, agree the answer format (JSON matching the candidate schemas, see F3-A)",
+        "For 10 documents: type out every BoQ line (item no, description, unit, quantity) and every requirement with its page number",
+        "AI dev does the other 10 (target 20 documents total)",
+        "Second person spot-checks 2 documents each",
+        "Save as `samples/<pack>/expected.json`"
+      ],
+      "done": [
+        "10 verified answer files committed and spot-checked"
+      ],
+      "files": [
+        "samples/*/expected.json"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan B4",
+        "spec 7.5"
+      ],
+      "code": false
+    },
+    {
+      "key": "B3",
+      "title": "[B3] LLM extractors: BoQ, requirements, supplier quotes",
+      "owner": "ai",
+      "milestone": "B3",
+      "start": "2026-10-30",
+      "due": "2026-11-03",
+      "points": 8,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:feature",
+        "priority:P0",
+        "pts:8"
+      ],
+      "depends_on": [
+        "B2",
+        "F3-A",
+        "F4-AI"
+      ],
+      "stub_ok": [],
+      "goal": "Turn extracted pages into reviewable candidate items with source pages. AI suggests, people approve.",
+      "tasks": [
+        "`LLMClient` interface: Azure OpenAI + fallback provider, JSON-schema structured output, timeout + retry",
+        "BoQ, requirement and quote-line extractors returning the frozen candidate schemas",
+        "Spreadsheets mapped straight into BoqLineCandidate (no LLM)",
+        "Page-chunked prompts; document text wrapped in delimiters and declared as data; only needed pages sent",
+        "Output that fails Pydantic validation is rejected and the job fails with an error_code",
+        "Worker saves items as `extracted` with source_document_id + source_page, replacing this job's previous candidates in the same transaction",
+        "Record token usage per job"
+      ],
+      "done": [
+        "Sample BoQ produces candidates with valid source pages",
+        "Re-running a job does not duplicate items"
+      ],
+      "files": [
+        "backend/app/ai/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan B3",
+        "US-04",
+        "CLAUDE.md rule 9",
+        "FR-17..FR-19, FR-24, FR-33"
+      ],
+      "code": true
+    },
+    {
+      "key": "D2",
+      "title": "[D2] Review screen: source page beside extracted fields",
+      "owner": "platform",
+      "milestone": "B3",
+      "start": "2026-10-31",
+      "due": "2026-11-04",
+      "points": 8,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:feature",
+        "priority:P0",
+        "pts:8",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-03",
+        "C3",
+        "A3"
+      ],
+      "stub_ok": [
+        "C3"
+      ],
+      "goal": "Reviewers check each extracted value against the page it came from and approve or correct it without leaving the screen.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Split view: react-pdf renders the source page on the left (via the download link), fields on the right",
+        "List of BoQ lines and requirements with status badges (extracted, corrected, approved, rejected, stale) and flags",
+        "Click an item → jump to its source page",
+        "Inline correct → PATCH; Approve / Reject buttons; bulk approve",
+        "Items flagged no_source show why they can't be approved",
+        "Keyboard: up/down to move, A to approve"
+      ],
+      "done": [
+        "A reviewer approves a line without leaving the page"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/view/review/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D2",
+        "US-06",
+        "FR-19, FR-20, FR-25, FR-26"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-06",
+      "title": "[FE-06] Checklist screen: requirements, assignees, due dates, tasks",
+      "owner": "pm",
+      "milestone": "B3",
+      "start": "2026-11-02",
+      "due": "2026-11-05",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P0",
+        "pts:5",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-03",
+        "C3"
+      ],
+      "stub_ok": [],
+      "goal": "The team sees every requirement still needing action, who owns it and when it's due.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Checklist table: requirement, mandatory/conditional/optional, source page link, review status, assignee, due date, status",
+        "Filters: mandatory only, unassigned, overdue",
+        "Assign a member and set a due date inline",
+        "Tasks list per tender: create, assign, change status",
+        "Fixed disclaimer banner: extracted to support preparation, not a ruling that the bid complies"
+      ],
+      "done": [
+        "Assign a requirement and mark a task done; disclaimer visible"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/view/checklist/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D4",
+        "US-05, US-07",
+        "CLAUDE.md rule 13",
+        "FR-22, FR-23, FR-43, FR-46"
+      ],
+      "code": true
+    },
+    {
+      "key": "C4-MATCH",
+      "title": "[C4-MATCH] Supplier matcher: fuzzy text + units + spec tokens",
+      "owner": "ai",
+      "milestone": "B3",
+      "start": "2026-11-03",
+      "due": "2026-11-04",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "C2",
+        "F3-A"
+      ],
+      "stub_ok": [],
+      "goal": "Suggest which supplier quote line matches each BoQ line, with evidence, and never pick the cheapest automatically.",
+      "tasks": [
+        "Pure function `match(boq_lines, quote_lines) -> suggestions` in `app/modules/suppliers/matcher.py`",
+        "rapidfuzz text score + unit normalisation (m, metre, lm; each, no, ea) + spec tokens (mm², cores, A rating, IP rating)",
+        "Evidence per suggestion: text score, unit match, spec match/conflict, price, quote validity",
+        "Low score or unit/spec conflict → stays `suggested` and flagged",
+        "Unit tests with real cable/DB-board/luminaire lines from the samples"
+      ],
+      "done": [
+        "Unit mismatch flagged; table-driven tests pass"
+      ],
+      "files": [
+        "backend/app/modules/suppliers/matcher.py"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan C4",
+        "CLAUDE.md rule 10",
+        "FR-34, FR-36, FR-37"
+      ],
+      "code": true
+    },
+    {
+      "key": "C4-API",
+      "title": "[C4-API] Suppliers, quotations, comparisons and match confirm API",
+      "owner": "data",
+      "milestone": "B3",
+      "start": "2026-11-03",
+      "due": "2026-11-04",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "C2",
+        "C3",
+        "B3"
+      ],
+      "stub_ok": [],
+      "goal": "Estimators record suppliers, upload quotes and confirm or reject matches; only confirmed matches feed prices.",
+      "tasks": [
+        "Replace the stub in `app/modules/suppliers/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "`POST/GET /suppliers`",
+        "`POST /quotations` (links an uploaded document; quote lines come from the B3 quote extractor)",
+        "Run the matcher (C4-MATCH) and store `quote_matches` with evidence",
+        "`GET /tenders/{id}/comparisons`: per BoQ line, all supplier options side by side",
+        "`PATCH /matches/{id}` confirm/reject; one confirmed match per line; confirmed price feeds the BoQ unit cost",
+        "Cross-tenant tests"
+      ],
+      "done": [
+        "Unconfirmed matches excluded from totals",
+        "Org B gets 404 on Org A suppliers/quotes"
+      ],
+      "files": [
+        "backend/app/modules/suppliers/"
+      ],
+      "endpoints": [
+        "POST /suppliers",
+        "GET /suppliers",
+        "POST /quotations",
+        "GET /tenders/{id}/comparisons",
+        "PATCH /matches/{id}"
+      ],
+      "refs": [
+        "build-plan C4",
+        "FR-31, FR-32, FR-35"
+      ],
+      "code": true
+    },
+    {
+      "key": "B4",
+      "title": "[B4] Validators + evaluation harness",
+      "owner": "ai",
+      "milestone": "B3",
+      "start": "2026-11-04",
+      "due": "2026-11-06",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:test",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "B3",
+        "PM-04"
+      ],
+      "stub_ok": [],
+      "goal": "Catch bad extractions with rules, and measure accuracy against the answer key.",
+      "tasks": [
+        "`ai/validators.py`: unit present, numeric quantity, null vs zero, outliers, disqualifier keywords, low OCR confidence, missing source → flags",
+        "`tests/ai_eval/eval.py`: field accuracy, precision and recall for BoQ lines and requirements, cost per document",
+        "Prompt-injection fixture (document says 'ignore instructions…') must not change behaviour",
+        "Run against the 20 verified documents"
+      ],
+      "done": [
+        "Eval script prints a metrics table"
+      ],
+      "files": [
+        "backend/app/ai/validators.py",
+        "backend/tests/ai_eval/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan B4",
+        "FR-17, FR-29"
+      ],
+      "code": true
+    },
+    {
+      "key": "D3",
+      "title": "[D3] BoQ editor screen",
+      "owner": "data",
+      "milestone": "B3",
+      "start": "2026-11-04",
+      "due": "2026-11-06",
+      "points": 8,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P0",
+        "pts:8",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-03",
+        "C2",
+        "C3"
+      ],
+      "stub_ok": [],
+      "goal": "Estimators price the BoQ in a spreadsheet-like table; totals always come from the server.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "TanStack Table with inline editing for quantity, unit, material, labour, markup",
+        "Missing quantity shown differently from 0",
+        "Flags highlighted; filter by review status",
+        "Original value shown on hover when a field was corrected",
+        "Totals panel (subtotal, VAT, total) refreshed from `GET /tenders/{id}/boq` after each save, never computed in the browser"
+      ],
+      "done": [
+        "Edits save and totals refresh from the server"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/view/boq/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D3",
+        "FR-25, FR-27..FR-29"
+      ],
+      "code": true
+    },
+    {
+      "key": "A4",
+      "title": "[A4] Audit trail, usage limits, rate limits",
+      "owner": "platform",
+      "milestone": "B3",
+      "start": "2026-11-04",
+      "due": "2026-11-05",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "A1",
+        "A2"
+      ],
+      "stub_ok": [],
+      "goal": "Every important action is recorded, and plan limits stop over-use before a job is queued.",
+      "tasks": [
+        "Replace the stub in `app/modules/audit/router.py`, `app/modules/usage/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "Audit rows for login, uploads, edits, approvals, exports (ids and action only, no document text)",
+        "`usage_counters` per org per month; plan limits checked before a job is queued → 402",
+        "slowapi limits on login and upload → 429",
+        "`GET /audit` (admin), `GET /usage`"
+      ],
+      "done": [
+        "Over-limit upload returns 402; 6th login in a minute returns 429"
+      ],
+      "files": [
+        "backend/app/modules/audit/",
+        "backend/app/modules/usage/"
+      ],
+      "endpoints": [
+        "GET /audit",
+        "GET /usage"
+      ],
+      "refs": [
+        "build-plan A4",
+        "FR-42, FR-47..FR-49"
+      ],
+      "code": true
+    },
+    {
+      "key": "A5",
+      "title": "[A5] Cross-tenant security suite",
+      "owner": "platform",
+      "milestone": "B3",
+      "start": "2026-11-05",
+      "due": "2026-11-06",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:test",
+        "priority:P0",
+        "pts:3"
+      ],
+      "depends_on": [
+        "A3",
+        "C3",
+        "C4-API"
+      ],
+      "stub_ok": [],
+      "goal": "Prove that one company can never see another's data.",
+      "tasks": [
+        "Parametrised test: for every resource endpoint, Org A token + Org B id → 404",
+        "Downloads and exports included",
+        "Run in CI"
+      ],
+      "done": [
+        "Org A gets 404 on every Org B id"
+      ],
+      "files": [
+        "backend/tests/security/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan A5",
+        "FR-05"
+      ],
+      "code": true
+    },
+    {
+      "key": "A5-NOTIFY",
+      "title": "[A5-NOTIFY] Notifications + daily deadline reminders",
+      "owner": "pm",
+      "milestone": "B3",
+      "start": "2026-11-05",
+      "due": "2026-11-06",
+      "points": 3,
+      "priority": "P1",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P1",
+        "pts:3"
+      ],
+      "depends_on": [
+        "C3"
+      ],
+      "stub_ok": [],
+      "goal": "People get reminded about closing dates, requirement due dates and tasks.",
+      "tasks": [
+        "Replace the stub in `app/modules/notifications/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "Daily job (worker command or scheduled Container Apps Job) creates notifications for tenders closing in 3 days and items due tomorrow / overdue",
+        "`GET /notifications`, mark as read",
+        "Email only if configured (P2)"
+      ],
+      "done": [
+        "Seeded overdue task produces a notification"
+      ],
+      "files": [
+        "backend/app/modules/notifications/"
+      ],
+      "endpoints": [
+        "GET /notifications"
+      ],
+      "refs": [
+        "build-plan A5",
+        "US-07",
+        "FR-44, FR-45"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-COMPARE",
+      "title": "[FE-COMPARE] Supplier comparison screen",
+      "owner": "ai",
+      "milestone": "B3",
+      "start": "2026-11-06",
+      "due": "2026-11-07",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:feature",
+        "priority:P0",
+        "pts:5",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-03",
+        "C4-API"
+      ],
+      "stub_ok": [],
+      "goal": "Estimators compare supplier options per BoQ line with the evidence and confirm the right one.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Suppliers page: list/create suppliers; upload a quotation for a tender",
+        "Comparison table per BoQ line: each supplier's description, unit, spec, price, validity, score",
+        "Highlight unit/spec conflicts and expired quotes",
+        "Confirm / Reject buttons; no 'pick cheapest' button"
+      ],
+      "done": [
+        "Confirm a match and see the BoQ price update"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/view/suppliers/",
+        "frontend/src/app/(app)/suppliers/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D4",
+        "FR-34..FR-37"
+      ],
+      "code": true
+    },
+    {
+      "key": "G2",
+      "title": "[G2] GATE G2 · Core loop works on a real tender pack (Fri 6 Nov)",
+      "owner": "pm",
+      "milestone": "B3",
+      "start": "2026-11-06",
+      "due": "2026-11-06",
+      "points": 0,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:gate",
+        "priority:P0"
+      ],
+      "depends_on": [
+        "A3",
+        "A4",
+        "A5",
+        "B2",
+        "B3",
+        "B4",
+        "C2",
+        "C3",
+        "C4-API",
+        "C4-MATCH",
+        "D2",
+        "D3",
+        "FE-06"
+      ],
+      "stub_ok": [],
+      "goal": "The MVP loop works on staging. Anything not done by now gets cut or simplified.",
+      "tasks": [
+        "Real electrical tender pack in",
+        "BoQ and requirements extracted with source pages",
+        "Reviewed, corrected and approved in the UI",
+        "Quotes matched and confirmed; totals correct to the cent",
+        "Org A cannot see Org B",
+        "PM: move any unfinished P1/P2 issues out or cut them"
+      ],
+      "done": [
+        "All checks pass on staging"
+      ],
+      "files": [],
+      "endpoints": [],
+      "refs": [
+        "build-plan G2"
+      ],
+      "code": false
+    },
+    {
+      "key": "C5",
+      "title": "[C5] Excel export of approved BoQ + exports API",
+      "owner": "data",
+      "milestone": "B4",
+      "start": "2026-11-07",
+      "due": "2026-11-08",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "C3"
+      ],
+      "stub_ok": [],
+      "goal": "Contractors take the approved estimate into their own spreadsheet.",
+      "tasks": [
+        "Replace the stub in `app/modules/exports/router.py` with router → service → repository; keep the response schema (frozen contract) and add a cross-tenant test",
+        "`POST /tenders/{id}/exports` (kind, draft or final), `GET /exports/{id}/download` (SAS link)",
+        "openpyxl write-only: approved rows only, version, generation date, source document + page column, totals",
+        "Draft exports watermarked 'DRAFT', include unapproved rows marked as such",
+        "Compliance register sheet with the disclaimer",
+        "`exports` row + audit event per export"
+      ],
+      "done": [
+        "Export of 2,000 lines in under 10 seconds",
+        "Final export contains approved rows only"
+      ],
+      "files": [
+        "backend/app/modules/exports/"
+      ],
+      "endpoints": [
+        "POST /tenders/{id}/exports",
+        "GET /exports/{id}/download"
+      ],
+      "refs": [
+        "build-plan C5",
+        "US-08",
+        "FR-30, FR-38, FR-40..FR-42"
+      ],
+      "code": true
+    },
+    {
+      "key": "C5-PDF",
+      "title": "[C5-PDF] Checklist PDF export with disclaimer",
+      "owner": "data",
+      "milestone": "B4",
+      "start": "2026-11-09",
+      "due": "2026-11-09",
+      "points": 3,
+      "priority": "P1",
+      "labels": [
+        "lane:data",
+        "type:feature",
+        "priority:P1",
+        "pts:3"
+      ],
+      "depends_on": [
+        "C5"
+      ],
+      "stub_ok": [],
+      "goal": "A printable compliance checklist the team can sign off.",
+      "tasks": [
+        "HTML template (Jinja) for the checklist: tender details, requirement, classification, source page, assignee, status",
+        "Render with WeasyPrint (add its system libraries to the Dockerfile)",
+        "Fixed disclaimer and generation date in the footer; 'DRAFT' watermark for drafts",
+        "Plug into the exports service from C5 as kind `checklist_pdf`"
+      ],
+      "done": [
+        "PDF downloads with disclaimer and source pages"
+      ],
+      "files": [
+        "backend/app/modules/exports/templates/checklist.html"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan C5",
+        "US-08",
+        "FR-23, FR-39"
+      ],
+      "code": true
+    },
+    {
+      "key": "FE-07",
+      "title": "[FE-07] Exports screen, notifications bell, audit page",
+      "owner": "pm",
+      "milestone": "B4",
+      "start": "2026-11-07",
+      "due": "2026-11-08",
+      "points": 3,
+      "priority": "P1",
+      "labels": [
+        "lane:pm",
+        "type:feature",
+        "priority:P1",
+        "pts:3",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "C5",
+        "A4",
+        "A5-NOTIFY"
+      ],
+      "stub_ok": [
+        "C5"
+      ],
+      "goal": "Finish the remaining small screens so every MVP feature is reachable from navigation.",
+      "tasks": [
+        "Replace the `<Placeholder>` page; call the API only through `src/api/client.ts`",
+        "Exports tab: Generate Excel (draft/final), Checklist PDF; list of past exports with version, date, who, download",
+        "Notifications bell in the top bar with unread count",
+        "Audit log page (admin only) with filters",
+        "Empty, loading and error states on every page you own"
+      ],
+      "done": [
+        "Every MVP screen reachable from navigation"
+      ],
+      "files": [
+        "frontend/src/app/(app)/tenders/view/exports/",
+        "frontend/src/app/(app)/settings/audit/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D4, D5",
+        "FR-41, FR-42"
+      ],
+      "code": true
+    },
+    {
+      "key": "B5",
+      "title": "[B5] AI accuracy report",
+      "owner": "ai",
+      "milestone": "B4",
+      "start": "2026-11-07",
+      "due": "2026-11-09",
+      "points": 3,
+      "priority": "P0",
+      "labels": [
+        "lane:ai",
+        "type:docs",
+        "priority:P0",
+        "pts:3"
+      ],
+      "depends_on": [
+        "B4"
+      ],
+      "stub_ok": [],
+      "goal": "The written evidence that the extraction works, and where it doesn't.",
+      "tasks": [
+        "Run eval on the final 20-document set",
+        "Metrics per field and per file type; cost per document",
+        "Failure analysis with examples; prompt-injection result",
+        "Write `docs/ai-evaluation.md` (spec section 7.5)"
+      ],
+      "done": [
+        "Report covers every metric in spec 7.5"
+      ],
+      "files": [
+        "docs/ai-evaluation.md"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan B5"
+      ],
+      "code": false
+    },
+    {
+      "key": "A6",
+      "title": "[A6] Hardening + production deploy",
+      "owner": "platform",
+      "milestone": "B4",
+      "start": "2026-11-07",
+      "due": "2026-11-09",
+      "points": 5,
+      "priority": "P0",
+      "labels": [
+        "lane:platform",
+        "type:infra",
+        "priority:P0",
+        "pts:5"
+      ],
+      "depends_on": [
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "stub_ok": [],
+      "goal": "Production is live, safe and recoverable.",
+      "tasks": [
+        "Security tests: id guessing, upload abuse (fake extension, zip bomb, oversize), rate limits",
+        "`deploy-prod.yml` with manual approval and a smoke test",
+        "Application Insights error alerts",
+        "Backup restore drill on Postgres, timed and written up",
+        "`docs/security.md` incl. POPIA notes"
+      ],
+      "done": [
+        "Production live; restore drill documented"
+      ],
+      "files": [
+        ".github/workflows/deploy-prod.yml",
+        "docs/security.md"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan A6"
+      ],
+      "code": true
+    },
+    {
+      "key": "E2E",
+      "title": "[E2E] Playwright end-to-end happy path",
+      "owner": "pm",
+      "milestone": "B4",
+      "start": "2026-11-08",
+      "due": "2026-11-09",
+      "points": 3,
+      "priority": "P1",
+      "labels": [
+        "lane:pm",
+        "type:test",
+        "priority:P1",
+        "pts:3",
+        "lane:frontend"
+      ],
+      "depends_on": [
+        "FE-07",
+        "D2",
+        "D3",
+        "FE-06"
+      ],
+      "stub_ok": [],
+      "goal": "One automated test that proves the whole MVP still works before we submit.",
+      "tasks": [
+        "Playwright test: log in → create tender → upload sample PDF → wait for succeeded → approve a line → export Excel",
+        "Use `npx playwright codegen` against staging to record it, then tidy",
+        "Run in CI against staging after deploy"
+      ],
+      "done": [
+        "E2E suite green against staging"
+      ],
+      "files": [
+        "frontend/tests/e2e/"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan D5"
+      ],
+      "code": true
+    },
+    {
+      "key": "G3",
+      "title": "[G3] GATE G3 · Release candidate (Mon 9 Nov)",
+      "owner": "pm",
+      "milestone": "B4",
+      "start": "2026-11-09",
+      "due": "2026-11-09",
+      "points": 0,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:gate",
+        "priority:P0"
+      ],
+      "depends_on": [
+        "A6",
+        "B5",
+        "C5",
+        "E2E"
+      ],
+      "stub_ok": [],
+      "goal": "Code freeze. From here only bug fixes, docs and the demo.",
+      "tasks": [
+        "Production deployed with approval",
+        "Approved Excel (and checklist PDF if done) export",
+        "Security tests and E2E green",
+        "Restore drill done"
+      ],
+      "done": [
+        "All checks pass in production"
+      ],
+      "files": [],
+      "endpoints": [],
+      "refs": [
+        "build-plan G3"
+      ],
+      "code": false
+    },
+    {
+      "key": "PM-05",
+      "title": "[PM-05] Mini pilot with 3–5 testers",
+      "owner": "pm",
+      "milestone": "B4",
+      "start": "2026-11-08",
+      "due": "2026-11-09",
+      "points": 1,
+      "priority": "P1",
+      "labels": [
+        "lane:pm",
+        "type:test",
+        "priority:P1",
+        "pts:1"
+      ],
+      "depends_on": [
+        "G2"
+      ],
+      "stub_ok": [],
+      "goal": "Real users try it once so the report can quote correction rate and time saved.",
+      "tasks": [
+        "Onboard 3–5 testers (permissioned documents only)",
+        "Measure correction rate (edits per extracted item) and rough time saved",
+        "Collect 3 quotes/feedback points for the documentation"
+      ],
+      "done": [
+        "Pilot results table in docs"
+      ],
+      "files": [],
+      "endpoints": [],
+      "refs": [
+        "build-plan P1"
+      ],
+      "code": false
+    },
+    {
+      "key": "PM-06",
+      "title": "[PM-06] Final documentation, demo rehearsal and submission (Tue 10 Nov)",
+      "owner": "pm",
+      "milestone": "B4",
+      "start": "2026-11-09",
+      "due": "2026-11-10",
+      "points": 2,
+      "priority": "P0",
+      "labels": [
+        "lane:pm",
+        "type:docs",
+        "priority:P0",
+        "pts:2"
+      ],
+      "depends_on": [
+        "G3",
+        "B5"
+      ],
+      "stub_ok": [],
+      "goal": "Hand in on time with everything the brief asks for.",
+      "tasks": [
+        "Final documentation: cover page, group name, names and student numbers, architecture, AI evaluation, security, pilot results",
+        "README: what it is, live link, how to run locally, demo accounts",
+        "Rehearse the 10-minute demo twice (script + backup recording)",
+        "Submit repo link, docs and live link by Tue 10 Nov"
+      ],
+      "done": [
+        "Submitted by 10 Nov"
+      ],
+      "files": [
+        "docs/",
+        "README.md"
+      ],
+      "endpoints": [],
+      "refs": [
+        "build-plan P1"
+      ],
+      "code": false
+    }
+  ]
+}
