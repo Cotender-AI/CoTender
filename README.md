@@ -43,11 +43,7 @@ Search the code for `TODO(` to find where each issue starts, e.g. `TODO(C2)`.
 
 ## How we work
 
-1. Take an issue from this week's milestone and move it to *In progress* on the board.
-2. Branch `feat/<KEY>-short-name` from `dev`.
-3. Replace the stub or placeholder; keep the response schemas (they're the frozen contract).
-4. `make lint && make test`. Changed a schema? `make openapi` and commit both generated files.
-5. PR into `dev` with `Closes #<n>`, one review, CI green, squash merge.
+See [CONTRIBUTING.md](CONTRIBUTING.md): branch per issue, pull request, green CI, squash merge. `main` is protected.
 
 ## Layout
 
