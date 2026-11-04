@@ -10,7 +10,7 @@ export function TenderTabs() {
   const path = usePathname();
   const id = useSearchParams().get("id") ?? "";
   return (
-    <div className="mb-6 flex gap-4 border-b border-slate-200 text-sm">
+    <div className="mb-6 flex gap-5 overflow-x-auto border-b border-border text-sm">
       {TABS.map((tab) => {
         const href = `/tenders/view/${tab}/?id=${id}`;
         const active = path.includes(`/view/${tab}`);
@@ -19,7 +19,7 @@ export function TenderTabs() {
             key={tab}
             href={href}
             className={`-mb-px border-b-2 px-1 pb-2 capitalize ${
-              active ? "border-slate-900 text-slate-900" : "border-transparent text-slate-500"
+              active ? "border-copper font-medium text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             {tab === "boq" ? "BoQ" : tab}
